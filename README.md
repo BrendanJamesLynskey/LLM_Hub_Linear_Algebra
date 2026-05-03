@@ -25,6 +25,8 @@ A twelve-deck presentation series that develops every piece of linear algebra a 
 
 Part of the [LLMs hub](https://github.com/BrendanJamesLynskey/LLMs) &mdash; an index of presentation series for AI/LLM engineers. This series is the mathematical foundation under the [Transformer Architecture](https://github.com/BrendanJamesLynskey/LLM_Hub_Transformer_Architecture) and [Modern Architectures](https://github.com/BrendanJamesLynskey/LLM_Hub_Modern_Architectures) sub-hubs, and the algorithmic motivation for the [NVIDIA GPU Architectures](https://github.com/BrendanJamesLynskey/LLM_Hub_NVIDIA_GPUs), [Google TPUs](https://github.com/BrendanJamesLynskey/LLM_Hub_Google_TPUs) and [CUDA Programming](https://github.com/BrendanJamesLynskey/LLM_Hub_CUDA) hubs.
 
+**Interview-prep companion:** [Interview_Linear_Algebra_AI](https://github.com/BrendanJamesLynskey/Interview_Linear_Algebra_AI) &mdash; the same syllabus distilled into question/answer format for active recall.
+
 ## Pedagogical arc
 
 Decks 01&ndash;04 build the language: vectors, matrices, matmul, inner products. Decks 05&ndash;09 develop the structure theorems &mdash; projection, eigendecomposition, SVD, QR, gradients &mdash; that explain *why* the transformer architecture is the shape it is. Decks 10&ndash;12 fold every piece back into a working transformer block and then scale it out across thousands of accelerators.
