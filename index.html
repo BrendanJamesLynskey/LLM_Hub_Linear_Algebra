@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Algebra for AI / ML &mdash; LLM Hub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a; --bg-card: #0d1117; --bg-code: #161b22;
+            --text-primary: #e6edf3; --text-secondary: #8b949e;
+            --accent: #a78bfa; --accent-dim: #a78bfa44; --accent-glow: #a78bfa33;
+            --accent-2: #f472b6; --accent-3: #fbbf24; --accent-4: #34d399;
+            --border: #21262d;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --font-body: 'Inter', sans-serif;
+            --max-width: 960px;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg-primary); color: var(--text-primary);
+               font-family: var(--font-body); font-size: 17px; line-height: 1.7;
+               overflow-x: hidden; }
+        .hero { min-height: 60vh; display: flex; flex-direction: column;
+                justify-content: center; align-items: center;
+                padding: 4rem 1.5rem 3rem; text-align: center; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 50%;
+                        transform: translateX(-50%); width: 700px; height: 600px;
+                        background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+                        pointer-events: none; z-index: 0; }
+        .hero > * { position: relative; z-index: 1; }
+        .series-label { font-family: var(--font-mono); font-size: 0.85rem;
+                        color: var(--accent); letter-spacing: 0.15em;
+                        text-transform: uppercase; margin-bottom: 1rem; }
+        .hero h1 { font-family: var(--font-display);
+                   font-size: clamp(2rem, 5vw, 3rem); font-weight: 700;
+                   color: var(--text-primary); line-height: 1.2; margin-bottom: 1rem; }
+        .hero h1 .accent { color: var(--accent); }
+        .hero .subtitle { font-size: 1.1rem; color: var(--text-secondary);
+                          max-width: 720px; margin-bottom: 1.5rem; }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem;
+                justify-content: center; margin-bottom: 1rem; }
+        .tag { font-family: var(--font-mono); font-size: 0.75rem;
+               padding: 0.25rem 0.75rem; border-radius: 999px;
+               border: 1px solid var(--accent); color: var(--accent);
+               background: var(--accent-dim); white-space: nowrap; }
+        .tag.r { border-color: var(--accent-2); color: var(--accent-2); background: rgba(244,114,182,0.10); }
+        .tag.y { border-color: var(--accent-3); color: var(--accent-3); background: rgba(251,191,36,0.10); }
+        .tag.g { border-color: var(--accent-4); color: var(--accent-4); background: rgba(52,211,153,0.10); }
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1.5rem; }
+        h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+             color: var(--accent); margin: 1rem 0 1.25rem; }
+        .deck-list { display: flex; flex-direction: column; gap: 0.6rem;
+                     list-style: none; padding: 0; counter-reset: deck; }
+        .deck-card { display: flex; gap: 1rem; padding: 1rem 1.25rem;
+                     background: var(--bg-card); border: 1px solid var(--border);
+                     border-left: 3px solid var(--accent); border-radius: 6px;
+                     transition: border-color 0.15s; counter-increment: deck; }
+        .deck-card:hover { border-color: var(--accent); }
+        .deck-card .num { font-family: var(--font-mono); font-size: 0.8rem;
+                          color: var(--accent); min-width: 2rem;
+                          padding-top: 0.15rem; }
+        .deck-card .num::before { content: counter(deck, decimal-leading-zero); }
+        .deck-card .body { flex: 1; min-width: 0; }
+        .deck-card .deck-title { font-family: var(--font-display); font-size: 1.05rem;
+                                 font-weight: 600; color: var(--text-primary);
+                                 margin-bottom: 0.2rem; }
+        .deck-card a.deck-title { text-decoration: none; }
+        .deck-card a.deck-title:hover { color: var(--accent); }
+        .deck-card .desc { font-size: 0.92rem; color: var(--text-secondary); }
+        .deck-card .meta { font-family: var(--font-mono); font-size: 0.7rem;
+                           color: var(--text-secondary); margin-top: 0.4rem;
+                           display: flex; gap: 0.6rem; flex-wrap: wrap; }
+        .badge { display: inline-block; font-family: var(--font-mono);
+                 font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 999px;
+                 border: 1px solid var(--border); color: var(--text-secondary); }
+        .badge.live { border-color: var(--accent); color: var(--accent);
+                      background: var(--accent-dim); }
+        .callout { background: var(--bg-card); border-left: 3px solid var(--accent);
+                   border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+        .callout p { margin-bottom: 0; color: var(--text-secondary); }
+        .callout p strong { color: var(--text-primary); }
+        .arc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 0.75rem; margin: 1rem 0 1.5rem; }
+        .arc-cell { background: var(--bg-card); border: 1px solid var(--border);
+                    border-left: 3px solid var(--accent); border-radius: 6px;
+                    padding: 0.85rem 1rem; }
+        .arc-cell.r { border-left-color: var(--accent-2); }
+        .arc-cell.g { border-left-color: var(--accent-4); }
+        .arc-cell h4 { font-family: var(--font-display); font-size: 0.95rem;
+                       color: var(--accent); margin-bottom: 0.3rem; }
+        .arc-cell.r h4 { color: var(--accent-2); }
+        .arc-cell.g h4 { color: var(--accent-4); }
+        .arc-cell p { font-size: 0.85rem; color: var(--text-secondary); margin: 0; }
+        .footer { text-align: center; padding: 3rem 1.5rem;
+                  color: var(--text-secondary); font-size: 0.85rem;
+                  border-top: 1px solid var(--border); max-width: var(--max-width);
+                  margin: 3rem auto 0; }
+        .footer a { color: var(--accent); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.8rem; }
+            .deck-card { flex-direction: column; gap: 0.3rem; }
+        }
+    </style>
+</head>
+<body>
+<header class="hero">
+    <div class="series-label">LLM Hub &mdash; Linear Algebra for AI / ML</div>
+    <h1><span class="accent">Linear Algebra</span> for AI / ML</h1>
+    <p class="subtitle">A twelve-deck arc from vectors and matrices to the SVD and tensor algebra &mdash; every idea landed inside a real transformer. Up-projection &amp; down-projection, attention as a stochastic matrix, LoRA, RoPE rotations, FlashAttention as a tiled GEMM, and the einsum view of large-model parallelism.</p>
+    <div class="tags">
+        <span class="tag">Vectors</span><span class="tag">Matmul</span>
+        <span class="tag">Projection</span><span class="tag">Eigen</span>
+        <span class="tag">SVD</span><span class="tag g">LoRA</span>
+        <span class="tag g">MLA</span><span class="tag y">RoPE</span>
+        <span class="tag y">Attention</span><span class="tag r">FFN</span>
+        <span class="tag r">FlashAttention</span><span class="tag">Einsum</span>
+    </div>
+</header>
+<main class="container">
+    <h2>Pedagogical arc</h2>
+    <div class="arc-grid">
+        <div class="arc-cell">
+            <h4>01 &ndash; 04 &nbsp;Foundations</h4>
+            <p>Vectors, matrices, matmul, inner products &mdash; the language every later deck reads from.</p>
+        </div>
+        <div class="arc-cell g">
+            <h4>05 &ndash; 09 &nbsp;Structure theorems</h4>
+            <p>Projection, eigendecomposition, SVD, QR and gradients &mdash; the why behind transformer shape and gradient flow.</p>
+        </div>
+        <div class="arc-cell r">
+            <h4>10 &ndash; 12 &nbsp;Inside the transformer</h4>
+            <p>Attention, the full block forward pass, and the tensor / sharding view that scales it across pods.</p>
+        </div>
+    </div>
+
+    <h2>Presentations in this series</h2>
+    <ol class="deck-list">
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_01_Vectors_and_Spaces/">Vectors &amp; Vector Spaces &rarr;</a><div class="desc">Vectors, span, basis, linear independence, dimension, coordinates &mdash; the geometric foundations behind every embedding. Interactive 2D vector playground.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_02_Matrices_as_Linear_Maps/">Matrices as Linear Maps &rarr;</a><div class="desc">A matrix is a linear map between coordinate spaces. Column picture, row picture, range &amp; null space, rank, MLP layer = matrix-vector. Interactive 2D map visualiser.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_03_Matrix_Multiplication/">Matrix Multiplication Deep-Dive &rarr;</a><div class="desc">Four equivalent views of matmul, block matrices, batched matmul, the arithmetic-intensity argument, why GEMM dominates LLM compute. Interactive matmul step-through.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_04_Inner_Products_and_Norms/">Inner Products, Norms &amp; Geometry &rarr;</a><div class="desc">Dot product, cosine similarity, L1/L2/L&infin; norms, orthogonality, Cauchy-Schwarz &mdash; the geometry behind embedding similarity and attention scores. Interactive cosine explorer.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_05_Projections_Up_and_Down/">Projections &mdash; Up &amp; Down &rarr;</a><div class="desc">Orthogonal projection, projection matrices, dimensionality lift &amp; collapse. Why transformer FFNs go up by 4&times; then back down. Interactive projection visualiser plus a working SwiGLU.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_06_Eigenvalues_and_Eigenvectors/">Eigenvalues &amp; Eigenvectors &rarr;</a><div class="desc">Eigendecomposition, the spectral theorem, power iteration, PCA, why eigenvalues control gradient flow and Jacobian conditioning. Interactive eigenvector animation.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_07_SVD_Low_Rank_and_LoRA/">SVD, Low-Rank &amp; LoRA &rarr;</a><div class="desc">Singular Value Decomposition, Eckart-Young, truncated SVD, LoRA / DoRA, DeepSeek MLA, low-rank KV-cache compression. Interactive image-rank slider.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_08_Orthogonality_QR_and_RoPE/">Orthogonality, QR &amp; RoPE &rarr;</a><div class="desc">Gram-Schmidt, QR factorisation, orthogonal matrices, condition number, weight initialisation, RoPE as a stack of 2&times;2 rotations. Interactive RoPE visualiser.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_09_Gradients_Jacobians_Backprop/">Gradients, Jacobians &amp; Backprop &rarr;</a><div class="desc">Derivative as the best linear approximation, the Jacobian, the chain rule as matrix product, JVP vs VJP, the linear-algebraic core of autograd. Interactive backprop walker.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_10_Attention_as_Linear_Algebra/">Attention as Linear Algebra &rarr;</a><div class="desc">Q, K, V as learned projections, softmax-row-stochastic attention matrix, multi-head as block-diagonal projection, masking, scale 1/&radic;d. Interactive attention playground.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_11_Transformer_Block_Anatomy/">Transformer Block Anatomy &rarr;</a><div class="desc">Walk a tensor through a full block: pre-norm, multi-head attention with all four projections, residual, FFN up-then-down with SwiGLU, residual. Every shape, every matmul.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/Linear_Algebra_AI_12_Tensors_Einsum_and_Modern_Tricks/">Tensors, Einsum &amp; Modern Tricks &rarr;</a><div class="desc">From matrices to tensors, einsum notation, batched / strided / sharded GEMMs, FlashAttention as block matmul, MoE as sparse projection, GQA as shared K/V, parameter / data / tensor parallelism.</div><div class="meta"><span class="badge live">live</span></div></div></li>
+    </ol>
+
+    <div class="callout">
+        <p><strong>Why a Linear Algebra sub-hub?</strong> Most introductions to transformers either skip the linear algebra entirely &mdash; "QKV are just learned projections, don't worry about it" &mdash; or front-load a semester of pure maths and never quite reconnect to the architecture. This series threads the needle. Every concept is introduced for its own sake (with proof sketches and geometric intuition), then immediately landed inside a real transformer block. By deck 11 you can read a 100M-line model definition as the linear-algebraic object it actually is.</p>
+    </div>
+</main>
+
+<footer class="footer">
+    <p>Part of the <a href="https://github.com/BrendanJamesLynskey/LLMs">LLMs hub</a> &mdash; an index of presentation series for AI/LLM engineers.</p>
+    <p style="margin-top: 0.5rem;">Companion sub-hubs: <a href="https://github.com/BrendanJamesLynskey/LLM_Hub_Transformer_Architecture">Transformer Architecture</a> &middot; <a href="https://github.com/BrendanJamesLynskey/LLM_Hub_Modern_Architectures">Modern Architectures</a> &middot; <a href="https://github.com/BrendanJamesLynskey/LLM_Hub_NVIDIA_GPUs">NVIDIA GPUs</a> &middot; <a href="https://github.com/BrendanJamesLynskey/LLM_Hub_Google_TPUs">Google TPUs</a></p>
+</footer>
+</body>
+</html>
