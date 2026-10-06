@@ -21,6 +21,10 @@ A twelve-deck presentation series that develops every piece of linear algebra a 
 | 11 | [Transformer Block Anatomy](https://brendanjameslynskey.github.io/Linear_Algebra_AI_11_Transformer_Block_Anatomy/) | live | Walk a tensor through a full block: pre-norm, multi-head attention with all four projections, residual, FFN up-then-down with SwiGLU, residual. Every shape, every matmul. |
 | 12 | [Tensors, Einsum &amp; Modern Tricks](https://brendanjameslynskey.github.io/Linear_Algebra_AI_12_Tensors_Einsum_and_Modern_Tricks/) | live | From matrices to tensors, einsum notation, batched / strided / sharded GEMMs, FlashAttention as block matmul, MoE as sparse projection, GQA as shared K/V, parameter / data / tensor parallelism. |
 
+## Related
+
+**Related site:** [Numerics Explained](https://numerics-explained.vercel.app/) ([code](https://github.com/BrendanJamesLynskey/numerics-explained)) is an interactive companion to this series: number formats, rounding and quantisation for ML, in 10 chapters each built around an animation computed by a bit-exact numerics library: bits to numbers, rounding, accumulation error, the formats zoo (FP8, BF16, MX), quantisation basics, activation outliers (LLM.int8(), SmoothQuant), GPTQ, AWQ and NF4, KV-cache quantisation measured on a live tiny transformer, and quantisation in hardware. Chapter 7 (GPTQ) is this series' linear algebra at work: an inverse Hessian and its Cholesky factor, applied column by column.
+
 ## Where this fits
 
 Part of the [LLMs hub](https://github.com/BrendanJamesLynskey/LLMs) &mdash; an index of presentation series for AI/LLM engineers. This series is the mathematical foundation under the [Transformer Architecture](https://github.com/BrendanJamesLynskey/LLM_Hub_Transformer_Architecture) and [Modern Architectures](https://github.com/BrendanJamesLynskey/LLM_Hub_Modern_Architectures) sub-hubs, and the algorithmic motivation for the [NVIDIA GPU Architectures](https://github.com/BrendanJamesLynskey/LLM_Hub_NVIDIA_GPUs), [Google TPUs](https://github.com/BrendanJamesLynskey/LLM_Hub_Google_TPUs) and [CUDA Programming](https://github.com/BrendanJamesLynskey/LLM_Hub_CUDA) hubs.
