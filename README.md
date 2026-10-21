@@ -1,3 +1,7 @@
+<!-- portfolio-strip:start (brief 40) -->
+<sub>**Brendan Lynskey** · [Portfolio home](https://brendanjameslynskey.github.io/) · [Interactive sites](https://brendanjameslynskey.github.io/#sites)</sub>
+<!-- portfolio-strip:end -->
+
 # Linear Algebra for AI / ML
 
 A twelve-deck presentation series that develops every piece of linear algebra a modern AI/ML engineer needs &mdash; from vectors and matrices to the SVD and tensor algebra &mdash; and lands each idea inside a transformer. The applied chapters cover up-projection and down-projection in MLPs, attention as a stochastic matrix product, LoRA / MLA / low-rank tricks, RoPE as 2D rotation, FlashAttention as a tiled GEMM, and the einsum / sharding view of large-model parallelism.
